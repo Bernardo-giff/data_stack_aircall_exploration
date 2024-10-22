@@ -359,11 +359,27 @@ def get_prompt_2():
 
 # COMMAND ----------
 
+import datetime
+
 # Translated file path
 file_translated_path = '/Volumes/dev/aircall_raw/aggregated_calls_by_account_translated'
 
 # Summary file path
-file_summary_path = '/Volumes/dev/aircall_raw/call_summaries'
+file_summary_path_root = '/Volumes/dev/aircall_raw/call_summaries'
+
+#Get today's string
+today_var = datetime.datetime.now().strftime("%Y-%m-%d")
+
+# Create subdirectory for today
+file_summary_path = os.path.join(file_summary_path_root, today_var)
+
+# Create folder if it doesn't exist
+if not os.path.exists(file_summary_path):
+    os.makedirs(file_summary_path)
+
+# Create the directory if it doesn't exist
+if not os.path.exists(file_summary_path):
+    os.makedirs(file_summary_path)
 
 # Loop through aggregated calls to generate translations and summaries
 for account in sf_calls['AccountId'].unique():
